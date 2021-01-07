@@ -42,16 +42,14 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    // Object detection & tracking feature with model downloaded from firebase
-    implementation 'com.google.mlkit:object-detection-custom:16.3.0'
-    implementation 'com.google.mlkit:linkfirebase:16.1.0'
+
+    /* Firebase */
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
-    // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
+    // Declare the dependency for the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics'
-    // Use this dependency to bundle the model with your app
-    implementation 'com.google.mlkit:face-detection:16.0.3'
+
     /* CameraX dependencies */
     def camerax_version = "1.0.0-beta07"
     // CameraX core library using camera2 implementation
@@ -60,4 +58,13 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     // CameraX View class
     implementation "androidx.camera:camera-view:1.0.0-alpha14"
+
+    /* ML Kit - Face Detection */
+    // Use this dependency to bundle the model with your app
+    implementation 'com.google.mlkit:face-detection:16.0.3'
+
+    //    // Object detection & tracking feature with model downloaded from firebase
+//    implementation 'com.google.mlkit:object-detection-custom:16.3.0'
+//    implementation 'com.google.mlkit:linkfirebase:16.1.0'
+
 }
