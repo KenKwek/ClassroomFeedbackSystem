@@ -34,9 +34,9 @@ typealias LumaListener = (luma: Double) -> Unit
  */
 
 class FaceDetection : AppCompatActivity() {
-    private var imageCapture: ImageCapture? = null
+    // private var imageCapture: ImageCapture? = null
 
-    private lateinit var outputDirectory: File
+    // private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class FaceDetection : AppCompatActivity() {
 
             val imageAnalysis = ImageAnalysis.Builder()
                     // .setTargetResolution(Size(1280, 720))
-                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+//                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
 
 //                    .build()
@@ -96,35 +96,34 @@ class FaceDetection : AppCompatActivity() {
                 val rotationDegrees = imageProxy.imageInfo.rotationDegrees
                 val mediaImage = imageProxy.image
                 if (mediaImage != null) {
+                    Log.d(TAG, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                     val image = InputImage.fromMediaImage(mediaImage, rotationDegrees)
                     // Pass image to an ML Kit Vision API
-                    // ...
 
-                    // Change Face Detector's Settings
-                    // https://developers.google.com/ml-kit/vision/face-detection/android#1.-configure-the-face-detector
-                    val options  = FaceDetectorOptions.Builder()
-//                            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+//                    // Change Face Detector's Settings
+//                    // https://developers.google.com/ml-kit/vision/face-detection/android#1.-configure-the-face-detector
+//                    val options  = FaceDetectorOptions.Builder()
 //                            .setContourMode(FaceDetectorOptions.LANDMARK_MODE_NONE)
 //                            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
-                            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
-                            .build()
+//                            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+//                            .build()
 
-                    val detector = FaceDetection.getClient(options);
+                    val detector = FaceDetection.getClient();
 
                     val result = detector.process(image)
+                            // Task completed successfully
                             .addOnSuccessListener { faces ->
-                                // Task completed successfully
                                 for (face in faces) {
                                     val bounds = face.boundingBox
                                     val rotY = face.headEulerAngleY // Head is rotated to the right rotY degrees
                                     val rotZ = face.headEulerAngleZ // Head is tilted sideways rotZ degrees
 
-                                    // If landmark detection was enabled (mouth, ears, eyes, cheeks, and
-                                    // nose available):
-                                    val leftEar = face.getLandmark(FaceLandmark.LEFT_EAR)
-                                    leftEar?.let {
-                                        val leftEarPos = leftEar.position
-                                    }
+//                                    // If landmark detection was enabled (mouth, ears, eyes, cheeks, and
+//                                    // nose available):
+//                                    val leftEar = face.getLandmark(FaceLandmark.LEFT_EAR)
+//                                    leftEar?.let {
+//                                        val leftEarPos = leftEar.position
+//                                    }
 
 //                                    // If contour detection was enabled:
 //                                    val leftEyeContour = face.getContour(FaceContour.LEFT_EYE)?.points
@@ -143,17 +142,18 @@ class FaceDetection : AppCompatActivity() {
 //                                        val id = face.trackingId
 //                                    }
                                 }
+
+                                Log.d(TAG, "Faces: $faces")
+                                imageProxy.close()
                             }
 
+                            // Task failed with an exception
                             .addOnFailureListener { e ->
-                                // Task failed with an exception
-                                // ...
+
                             }
 
-                    Log.d(TAG, "Result: $result")
                 }
 
-                imageProxy.close()
             })
 
             // Create a try block. Inside that block, make sure nothing is bound to your cameraProvider, and then bind your cameraSelector and preview object to the cameraProvider.
