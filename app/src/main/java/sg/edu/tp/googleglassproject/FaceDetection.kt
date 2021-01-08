@@ -26,17 +26,13 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-typealias LumaListener = (luma: Double) -> Unit
-
 /*
     Google Codelabs: CameraX Getting Started
     https://codelabs.developers.google.com/codelabs/camerax-getting-started#0
  */
 
 class FaceDetection : AppCompatActivity() {
-    // private var imageCapture: ImageCapture? = null
-
-    // private lateinit var outputDirectory: File
+    
     private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,18 +81,10 @@ class FaceDetection : AppCompatActivity() {
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
 
-//                    .build()
-//                    .also {
-//                        it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luma ->
-//                            Log.d(TAG, "Average luminosity: $luma")
-//                        })
-//                    }
-
             imageAnalysis.setAnalyzer(AsyncTask.THREAD_POOL_EXECUTOR, ImageAnalysis.Analyzer { imageProxy ->
                 val rotationDegrees = imageProxy.imageInfo.rotationDegrees
                 val mediaImage = imageProxy.image
                 if (mediaImage != null) {
-                    Log.d(TAG, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                     val image = InputImage.fromMediaImage(mediaImage, rotationDegrees)
                     // Pass image to an ML Kit Vision API
 
@@ -144,6 +132,7 @@ class FaceDetection : AppCompatActivity() {
                                 }
 
                                 Log.d(TAG, "Faces: $faces")
+
                                 imageProxy.close()
                             }
 
@@ -203,27 +192,5 @@ class FaceDetection : AppCompatActivity() {
             }
         }
     }
-
-//    private class LuminosityAnalyzer(private val listener: LumaListener) : ImageAnalysis.Analyzer {
-//
-//        private fun ByteBuffer.toByteArray(): ByteArray {
-//            rewind()    // Rewind the buffer to zero
-//            val data = ByteArray(remaining())
-//            get(data)   // Copy the buffer into a byte array
-//            return data // Return the byte array
-//        }
-//
-//        override fun analyze(image: ImageProxy) {
-//
-//            val buffer = image.planes[0].buffer
-//            val data = buffer.toByteArray()
-//            val pixels = data.map { it.toInt() and 0xFF }
-//            val luma = pixels.average()
-//
-//            listener(luma)
-//
-//            image.close()
-//        }
-//    }
 
 }
