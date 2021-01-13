@@ -11,4 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <sg.edu.tp.googleglassproject.GraphicOverlay
+        android:id="@+id/graphic_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

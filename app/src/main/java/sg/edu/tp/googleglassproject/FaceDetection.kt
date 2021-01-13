@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import kotlinx.android.synthetic.main.activity_face_detection.*
 import java.util.concurrent.ExecutorService
@@ -127,6 +128,7 @@ class FaceDetection : AppCompatActivity() {
                                 }
 
                                 Log.d(TAG, "Faces: $faces")
+                                processFaceResult(faces)
 
                                 imageProxy.close()
                             }
@@ -185,6 +187,16 @@ class FaceDetection : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
                 finish()
             }
+        }
+    }
+
+    private fun processFaceResult(faces: List<Face>) {
+        // Remove previous bounding boxes
+        graphic_overlay.clear()
+        faces.forEach {
+            val bounds = it.boundingBox
+            val rectOverLay = RectOverlay(graphic_overlay, bounds)
+            graphic_overlay.add(rectOverLay)
         }
     }
 
