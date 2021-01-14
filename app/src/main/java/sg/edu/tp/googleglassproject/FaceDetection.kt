@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.util.Size
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -73,13 +74,14 @@ class FaceDetection : AppCompatActivity() {
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             val imageAnalysis = ImageAnalysis.Builder()
-                    // .setTargetResolution(Size(1280, 720))
+                    .setTargetResolution(Size(640, 360))
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
 
             imageAnalysis.setAnalyzer(AsyncTask.THREAD_POOL_EXECUTOR, ImageAnalysis.Analyzer { imageProxy ->
                 val rotationDegrees = imageProxy.imageInfo.rotationDegrees
                 val mediaImage = imageProxy.image
+
                 if (mediaImage != null) {
                     val image = InputImage.fromMediaImage(mediaImage, rotationDegrees)
                     // Pass image to an ML Kit Vision API
@@ -87,9 +89,7 @@ class FaceDetection : AppCompatActivity() {
 //                    // Change Face Detector's Settings
 //                    // https://developers.google.com/ml-kit/vision/face-detection/android#1.-configure-the-face-detector
 //                    val options  = FaceDetectorOptions.Builder()
-//                            .setContourMode(FaceDetectorOptions.LANDMARK_MODE_NONE)
-//                            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
-//                            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+//                            < SETTINGS OPTIONS >
 //                            .build()
 
                     val detector = FaceDetection.getClient();
@@ -101,35 +101,9 @@ class FaceDetection : AppCompatActivity() {
                                     val bounds = face.boundingBox
                                     val rotY = face.headEulerAngleY // Head is rotated to the right rotY degrees
                                     val rotZ = face.headEulerAngleZ // Head is tilted sideways rotZ degrees
-
-//                                    // If landmark detection was enabled (mouth, ears, eyes, cheeks, and
-//                                    // nose available):
-//                                    val leftEar = face.getLandmark(FaceLandmark.LEFT_EAR)
-//                                    leftEar?.let {
-//                                        val leftEarPos = leftEar.position
-//                                    }
-
-//                                    // If contour detection was enabled:
-//                                    val leftEyeContour = face.getContour(FaceContour.LEFT_EYE)?.points
-//                                    val upperLipBottomContour = face.getContour(FaceContour.UPPER_LIP_BOTTOM)?.points
-//
-//                                    // If classification was enabled:
-//                                    if (face.smilingProbability != null) {
-//                                        val smileProb = face.smilingProbability
-//                                    }
-//                                    if (face.rightEyeOpenProbability != null) {
-//                                        val rightEyeOpenProb = face.rightEyeOpenProbability
-//                                    }
-//
-//                                    // If face tracking was enabled:
-//                                    if (face.trackingId != null) {
-//                                        val id = face.trackingId
-//                                    }
                                 }
 
-                                Log.d(TAG, "Faces: $faces")
                                 processFaceResult(faces)
-
                                 imageProxy.close()
                             }
 
@@ -193,6 +167,7 @@ class FaceDetection : AppCompatActivity() {
     private fun processFaceResult(faces: List<Face>) {
         // Remove previous bounding boxes
         graphic_overlay.clear()
+
         faces.forEach {
             val bounds = it.boundingBox
             val rectOverLay = RectOverlay(graphic_overlay, bounds)

@@ -3,8 +3,10 @@ package sg.edu.tp.googleglassproject;
 import android.graphics.*;
 
 public class RectOverlay extends GraphicOverlay.Graphic{
+    // Bounding Box Colour
     private int RECT_COLOR = Color.RED;
-    private float strokeWidth = 4.0f;
+    // Bounding Box Thickness
+    private float strokeWidth = 2.0f;
     private Paint rectPaint;
     private Rect rect;
     private GraphicOverlay graphicOverlay;
