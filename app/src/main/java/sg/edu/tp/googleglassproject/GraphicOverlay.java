@@ -26,9 +26,7 @@ public class GraphicOverlay extends View {
      */
     public static abstract class Graphic {
         private GraphicOverlay mOverlay;
-        public Graphic(GraphicOverlay overlay) {
-            mOverlay = overlay;
-        }
+        public Graphic(GraphicOverlay overlay) { mOverlay = overlay; }
         /**
          * Draw the graphic on the supplied canvas.  Drawing should use the following methods to
          * convert to view coordinates for the graphics that are drawn:
@@ -46,9 +44,7 @@ public class GraphicOverlay extends View {
          * Adjusts a horizontal value of the supplied value from the preview scale to the view
          * scale.
          */
-        public float scaleX(float horizontal) {
-            return horizontal * mOverlay.mWidthScaleFactor;
-        }
+        public float scaleX(float horizontal) { return horizontal * mOverlay.mWidthScaleFactor; }
         /**
          * Adjusts a vertical value of the supplied value from the preview scale to the view scale.
          */
@@ -76,6 +72,7 @@ public class GraphicOverlay extends View {
         public void postInvalidate() {
             mOverlay.postInvalidate();
         }
+
     }
     public GraphicOverlay(Context context, AttributeSet attrs) {
         super(context, attrs);
