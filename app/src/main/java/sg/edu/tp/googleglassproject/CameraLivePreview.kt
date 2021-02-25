@@ -146,8 +146,6 @@ class CameraLivePreview : AppCompatActivity() {
                                 for (face in faces) {
                                     val bounds = face.boundingBox
 
-//                                    val faceBitmap = bitmap?.let { Bitmap.createBitmap(it, (bounds.exactCenterX()/2).toInt(), (bounds.exactCenterY()/2).toInt(), bounds.width(), bounds.height()) }
-
                                 }
 
                                 /* TensorFlow Lite - Face Recognition */
@@ -157,33 +155,6 @@ class CameraLivePreview : AppCompatActivity() {
 
                                 val outputs = recognitionModel.process(inputFeature0)
                                 val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-
-//                                Log.d(TAG, "Result: $outputFeature0")
-
-//                                /*
-//                                    Mapping TensorFlow Results to Labels
-//                                    https://www.tensorflow.org/lite/inference_with_metadata/lite_support#optional_mapping_results_to_labels
-//                                */
-//                                val ASSOCIATED_AXIS_LABELS = "labels.txt"
-//                                var associatedAxisLabels: List<String>? = null
-//
-//                                try {
-//                                    associatedAxisLabels = FileUtil.loadLabels(this, ASSOCIATED_AXIS_LABELS)
-//                                } catch (e: IOException) {
-//                                    Log.e("tfliteSupport", "Error reading label file", e)
-//                                }
-//
-//                                // Post-processor which dequantize the result
-//                                val probabilityProcessor = TensorProcessor.Builder().add(NormalizeOp(0F, 255F)).build()
-//
-//                                if (null != associatedAxisLabels) {
-//                                    // Map of labels and their corresponding probability
-//                                    val labels = TensorLabel(associatedAxisLabels,
-//                                            probabilityProcessor.process(outputFeature0))
-//
-//                                    // Create a map to access the result based on label
-//                                    val floatMap = labels.mapWithFloatValue
-//                                }
 
                                 // Releases model resources if no longer used.
                                 recognitionModel.close()
@@ -202,7 +173,6 @@ class CameraLivePreview : AppCompatActivity() {
                                 database.collection("users").document(predictedName)
                                         .get()
                                         .addOnSuccessListener { document ->
-//                                            Log.d(TAG, "Document Data: ${document.id} => ${document.data}")
                                             if (document.data != null) {
                                                 val status: Boolean = document.getBoolean("FeedbackStatus") == true;
                                                 if (!status) {
@@ -212,7 +182,6 @@ class CameraLivePreview : AppCompatActivity() {
                                                     feedbackStatus = 2
                                                 }
                                             }
-//                                            Log.d(TAG, "Status: $feedbackStatus")
                                         }
 
                                         .addOnFailureListener { exception ->
@@ -298,7 +267,6 @@ class CameraLivePreview : AppCompatActivity() {
         // Every Face Detected, sent BoundingBox Coordinate
         faces.forEach {
             val bounds = it.boundingBox
-//            val rectOverLay = RectOverlay(graphic_overlay, bounds)
             val rectOverLay = RectOverlay(graphic_overlay, bounds, predictedName, statusBitmap)
             graphic_overlay.add(rectOverLay)
         }
