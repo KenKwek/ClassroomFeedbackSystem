@@ -1,5 +1,11 @@
 # Classroom-Feedback-System
 
+## Project Demostration
+![Classroom Feedback System Video Demostration](Media-Assets/Classroom-Feedback-System-Demo.gif)
+
+## System Architecture
+![Classroom Feedback System System Architecture](Media-Assets/System-Architecture.png)
+
 ## Development Environment
 - IDE: Android Studio 
 - SDK: Android 8.1 API 27 SDK Platform
