@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "547028781713",
+    "project_id": "classroomfeedbacksystem",
+    "storage_bucket": "classroomfeedbacksystem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547028781713:android:f4700705f818ada0354d30",
+        "android_client_info": {
+          "package_name": "sg.edu.tp.googleglassproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547028781713-c0ankar2omfjoc6dmfhfmtl7pi30s5ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0xHITQc0H7pQN1oAuApS3REdFn9tmUFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547028781713-c0ankar2omfjoc6dmfhfmtl7pi30s5ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

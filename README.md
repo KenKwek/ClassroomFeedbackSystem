@@ -1,4 +1,12 @@
 # Classroom-Feedback-System
+Classroom Feedback System is a Google Glass project for my Major Project (Final Year Project) during my Diploma studies in Temasek Polytechnic.
+It uses a Google Glass-Based Classroom Feedback System to improve Students to Teacher Communication.
+
+## Project Demostration
+![Classroom Feedback System Video Demostration](Media-Assets/Classroom-Feedback-System-Demo.gif)
+
+## System Architecture
+![Classroom Feedback System System Architecture](Media-Assets/System-Architecture.png)
 
 ## Development Environment
 - IDE: Android Studio 
